@@ -1,0 +1,21 @@
+name: test-deploy
+on:
+  workflow_dispatch:
+  repository_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run the app
+        run: python app.py
+      - name: Upload proof artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deploy-proof
+          path: deploy-proof.txt
